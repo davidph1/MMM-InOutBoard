@@ -1,7 +1,5 @@
 ## Screenshot
 
-![Example of MMM-Template](./example_1.png)
-
 ## Installation
 
 ### Install
