@@ -25,9 +25,14 @@ Module.register("MMM-InOutBoard", {
   },
 
   getDom() {
-    const wrapper = document.createElement("div")
-    wrapper.innerHTML = `<b>Title</b><br />${this.templateContent}`
-
+    var wrapper = document.createElement("div")
+    if (!this.table1) {
+       this.table1 = document.createElement("table");
+    }
+    this.table1.style.display = "block";
+    if (!wrapper.contains(this.table1)) {
+       wrapper.appendChild(this.table1);
+    }
     return wrapper
   },
 
@@ -43,10 +48,12 @@ Module.register("MMM-InOutBoard", {
     if (matchingindex > -1){
     if (this.toggleArray[matchingindex]===0){
       this.toggleArray[matchingindex] = 1;
+      this.table1 = this.createTable1();
       this.updatedom();
     }
     else{
       this.toggleArray[matchingindex] = 0;
+      this.table1 = this.createTable1();
       this.updatedom();
     }}
   },
