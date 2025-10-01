@@ -1,38 +1,27 @@
 Module.register("MMM-InOutBoard", {
 
   defaults: {
-    exampleContent: ""
+    numberOfNames: 2,
+    names: [
+      {name: "Alice", key: "A"},
+      {name: "Bob", key: "B"},
   },
 
-  /**
-   * Apply the default styles.
-   */
   getStyles() {
     return ["InOutBoard.css"]
   },
 
-  /**
-   * Pseudo-constructor for our module. Initialize stuff here.
-   */
   start() {
-    this.templateContent = this.config.exampleContent
+     // Log module start
+    Log.info(`Starting module: ${this.name}`);
 
-    // set timeout for next random text
-    setInterval(() => this.addRandomText(), 3000)
-  },
+    // Add event listeners for both "keydown" and "scroll wheel" events
+    document.addEventListener("keydown", this.handleKeyEvent.bind(this));
 
-  /**
-   * Handle notifications received by the node helper.
-   * So we can communicate between the node helper and the module.
-   *
-   * @param {string} notification - The notification identifier.
-   * @param {any} payload - The payload data`returned by the node helper.
-   */
-  socketNotificationReceived: function (notification, payload) {
-    if (notification === "EXAMPLE_NOTIFICATION") {
-      this.templateContent = `${this.config.exampleContent} ${payload.text}`
-      this.updateDom()
-    }
+    //set Toggle array
+    for(let i = 0; i < this.config.numberOfNames; i+=1{
+      this.toggleArray[i] = 0;
+  }
   },
 
   /**
@@ -45,20 +34,23 @@ Module.register("MMM-InOutBoard", {
     return wrapper
   },
 
-  addRandomText() {
-    this.sendSocketNotification("GET_RANDOM_TEXT", { amountCharacters: 15 })
-  },
+  handleKeyEvent (event) {
+    // Extract key information from the event
+    const key = event.key.toUpperCase();
+    const {keyCode} = event;
+    const {code} = event;
 
-  /**
-   * This is the place to receive notifications from other modules or the system.
-   *
-   * @param {string} notification The notification ID, it is preferred that it prefixes your module name
-   * @param {number} payload the payload type.
-   */
-  notificationReceived(notification, payload) {
-    if (notification === "TEMPLATE_RANDOM_TEXT") {
-      this.templateContent = `${this.config.exampleContent} ${payload}`
-      this.updateDom()
+    // Find a matching notification based on the pressed key and 
+    const matchingindex = this.config.names.findindex((key) => key === keyCode || key === key || key === code);
+
+    if (matchingindex > -1){
+    if (this.toggleArray[matchingindex]===0){
+      this.toggleArray[matchingindex] = 1;
+      this.updatedom();
     }
-  }
+    else{
+      this.toggleArray[matchingindex] = 0;
+      this.updatedom();
+    }}
+  },
 })
