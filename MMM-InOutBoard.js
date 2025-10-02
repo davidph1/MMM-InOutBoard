@@ -3,8 +3,8 @@ Module.register("MMM-InOutBoard", {
   defaults: {
     numberOfNames: 2,
     names: [
-      {name: "Alice", key: "A"},
-      {name: "Bob", key: "B"},
+      {name: "Alice", press: "A"},
+      {name: "Bob", press: "B"}]
   },
 
   getStyles() {
@@ -14,14 +14,15 @@ Module.register("MMM-InOutBoard", {
   start() {
      // Log module start
     Log.info(`Starting module: ${this.name}`);
-
     // Add event listeners for both "keydown" and "scroll wheel" events
     document.addEventListener("keydown", this.handleKeyEvent.bind(this));
-
+      this.toggleArray = [];
     //set Toggle array
-    for(let i = 0; i < this.config.numberOfNames; i+=1{
+    for(let i = 0; i < this.config.numberOfNames; i+=1){
       this.toggleArray[i] = 0;
   }
+  this.table1 = this.createTable1();
+  this.updateDom();
   },
 
   getDom() {
@@ -41,20 +42,28 @@ Module.register("MMM-InOutBoard", {
     const key = event.key.toUpperCase();
     const {keyCode} = event;
     const {code} = event;
-
+	
+    let k = "press";
     // Find a matching notification based on the pressed key and 
-    const matchingindex = this.config.names.findindex((key) => key === keyCode || key === key || key === code);
+    let matchingindex = -1;
+
+    for (let p = 0; p< this.config.names.length; p++){
+	if (this.config.names[p]["press"] === key || this.config.names[p]["press"] === keyCode || this.config.names[p]["press"] === code) {
+		matchingindex = p;
+		break
+	}
+    }
 
     if (matchingindex > -1){
     if (this.toggleArray[matchingindex]===0){
       this.toggleArray[matchingindex] = 1;
       this.table1 = this.createTable1();
-      this.updatedom();
+      this.updateDom();
     }
     else{
       this.toggleArray[matchingindex] = 0;
       this.table1 = this.createTable1();
-      this.updatedom();
+      this.updateDom();
     }}
   },
   createTable1: function () {
@@ -103,7 +112,7 @@ Module.register("MMM-InOutBoard", {
 
             const teamName = document.createElement('td');
             teamName.setAttribute('align', 'left');
-            teamName.innerHTML = this.config.names[z].key;
+            teamName.innerHTML = this.config.names[z].press;
             row.appendChild(teamName);
           
             const teamPoints = document.createElement('td');
