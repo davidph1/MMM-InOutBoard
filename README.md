@@ -34,8 +34,7 @@ Example configuration to use the module:
 			module: "MMM-InOutBoard",
 			position: "top_center",
 			config: {
-				numberOfNames:5,
-				names:[{name:"James",press:"J"},{name:"Paul",press:"P"},{name:"David",press:"D"},{name:"Chris",press:"C"},{name:"Nigel",press:"N"}]
+				names:[{name:"Paul J",press:"J"},{name:"Paul D",press:"P"},{name:"David",press:"D"},{name:"Chris",press:"C"},{name:"Nigel",press:"N"}]
 			}
 		}
 ```
