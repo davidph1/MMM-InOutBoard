@@ -43,6 +43,9 @@ Example configuration to use the module:
 
 The option you put in press can be the key i.e. "J", the keycode i.e. 16, or the code i.e. "ShiftLeft"
 
+## Acknowledgment
+Thanks to ItsMeBrille/MMM-Keypress and mumblebaj/MMM-Rugby for code starting off points.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
