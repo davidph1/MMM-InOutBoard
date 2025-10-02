@@ -1,4 +1,5 @@
 ## Screenshot
+![Example](screenshot.png)
 
 ## Installation
 
