@@ -26,7 +26,7 @@ To use this module, you have to add a configuration object to the modules array 
 
 ### Example configuration
 
-Minimal configuration to use the module:
+Example configuration to use the module:
 
 ```js
     {
@@ -38,6 +38,11 @@ Minimal configuration to use the module:
 			}
 		}
 ```
+
+### Press options
+
+The option you put in press can be the key i.e. "J", the keycode i.e. 16, or the code i.e. "ShiftLeft"
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
