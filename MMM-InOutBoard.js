@@ -19,7 +19,7 @@ Module.register("MMM-InOutBoard", {
       this.toggleArray = [];
     //set Toggle array
     for(let i = 0; i < this.config.numberOfNames; i+=1){
-      this.toggleArray[i] = 0;
+      this.toggleArray[i] = "Out";
   }
   this.table1 = this.createTable1();
   this.updateDom();
@@ -42,7 +42,10 @@ Module.register("MMM-InOutBoard", {
     const key = event.key.toUpperCase();
     const {keyCode} = event;
     const {code} = event;
-	
+	Log.log(key);
+	Log.log(keyCode);
+	Log.log(code);
+
     let k = "press";
     // Find a matching notification based on the pressed key and 
     let matchingindex = -1;
@@ -55,13 +58,13 @@ Module.register("MMM-InOutBoard", {
     }
 
     if (matchingindex > -1){
-    if (this.toggleArray[matchingindex]===0){
-      this.toggleArray[matchingindex] = 1;
+    if (this.toggleArray[matchingindex]==="Out"){
+      this.toggleArray[matchingindex] = "In";
       this.table1 = this.createTable1();
       this.updateDom();
     }
     else{
-      this.toggleArray[matchingindex] = 0;
+      this.toggleArray[matchingindex] = "Out";
       this.table1 = this.createTable1();
       this.updateDom();
     }}
@@ -70,33 +73,26 @@ Module.register("MMM-InOutBoard", {
         var MMMinOutDiv = document.createElement('div');
         MMMinOutDiv.classList.add('MMM-inOutBoard');
         var inOutHeader = document.createElement('div')
-        inOutHeader.className = 'medium'
-        var headerSpan = document.createElement('span')
-        headerSpan.classList.add('medium', 'bright')
-        headerSpan.setAttribute('align', 'right')
-        headerSpan.innerHTML = "In & Out Board"
-        inOutHeader.appendChild(headerSpan)
+        inOutHeader.className = 'inoutH'
+        inOutHeader.innerHTML = "In & Out Board"
         MMMinOutDiv.appendChild(inOutHeader)
 
-        // Create table for first set of data
+        // Create table for data
         var table1 = document.createElement("table");
         var table1Header = document.createElement("thead");
         var table1Body = document.createElement("tbody");
 
         // Create header row for Name
         var table1HeaderRow = document.createElement("tr");
-        const nameHead = document.createElement('td');
-        nameHead.setAttribute('align', 'center');
+        const nameHead = document.createElement('th');
         nameHead.innerHTML = "Name";
         table1HeaderRow.appendChild(nameHead)
         // Create header row for Key
-        const keyHead = document.createElement('td');
-        keyHead.setAttribute('align', 'center');
+        const keyHead = document.createElement('th');
         keyHead.innerHTML = 'Key';
         table1HeaderRow.appendChild(keyHead)
         // Create header row for indication
-        const whereHead = document.createElement('td');
-        whereHead.setAttribute('align', 'center');
+        const whereHead = document.createElement('th');
         whereHead.innerHTML = 'In or Out';
         table1HeaderRow.appendChild(whereHead)
         
@@ -105,20 +101,25 @@ Module.register("MMM-InOutBoard", {
         // Populate table1 body with data
         for (let z = 0; z < this.config.numberOfNames; z+=1) {
             var row = document.createElement("tr");
-            const pos = document.createElement("td");
-            pos.setAttribute('align', 'left');
-            pos.innerHTML = this.config.names[z].name;
-            row.appendChild(pos);
+            const nameData = document.createElement("td");
+            nameData.innerHTML = this.config.names[z].name;
+            row.appendChild(nameData);
 
-            const teamName = document.createElement('td');
-            teamName.setAttribute('align', 'left');
-            teamName.innerHTML = this.config.names[z].press;
-            row.appendChild(teamName);
+            const keyData = document.createElement('td');
+            keyData.innerHTML = this.config.names[z].press;
+            row.appendChild(keyData);
           
-            const teamPoints = document.createElement('td');
-            teamPoints.setAttribute('align', 'right');
-            teamPoints.innerHTML = this.toggleArray[z];
-            row.appendChild(teamPoints);
+            const whereData = document.createElement('td');
+            whereData.innerHTML = this.toggleArray[z];
+	    if (this.toggleArray[z]=== "Out"){
+		whereData.className = 'color-out';		
+		}
+	    else{
+		whereData.className = 'color-in';
+		}
+
+
+            row.appendChild(whereData);
             table1Body.appendChild(row);
         };
 
