@@ -1,7 +1,6 @@
 Module.register("MMM-InOutBoard", {
 
   defaults: {
-    numberOfNames: 2,
     names: [
       {name: "Alice", press: "A"},
       {name: "Bob", press: "B"}]
@@ -14,11 +13,12 @@ Module.register("MMM-InOutBoard", {
   start() {
      // Log module start
     Log.info(`Starting module: ${this.name}`);
-    // Add event listeners for both "keydown" and "scroll wheel" events
+    // Add event listeners for "keydown" events
     document.addEventListener("keydown", this.handleKeyEvent.bind(this));
-      this.toggleArray = [];
+    this.toggleArray = [];
     //set Toggle array
-    for(let i = 0; i < this.config.numberOfNames; i+=1){
+    this.numberOfNames=this.config.names.length;
+    for(let i = 0; i < this.numberOfNames; i+=1){
       this.toggleArray[i] = "Out";
   }
   this.table1 = this.createTable1();
@@ -42,10 +42,6 @@ Module.register("MMM-InOutBoard", {
     const key = event.key.toUpperCase();
     const {keyCode} = event;
     const {code} = event;
-	Log.log(key);
-	Log.log(keyCode);
-	Log.log(code);
-
     let k = "press";
     // Find a matching notification based on the pressed key and 
     let matchingindex = -1;
@@ -99,7 +95,7 @@ Module.register("MMM-InOutBoard", {
         // Append header row to table1 header
         table1Header.appendChild(table1HeaderRow);
         // Populate table1 body with data
-        for (let z = 0; z < this.config.numberOfNames; z+=1) {
+        for (let z = 0; z < this.numberOfNames; z+=1) {
             var row = document.createElement("tr");
             const nameData = document.createElement("td");
             nameData.innerHTML = this.config.names[z].name;
